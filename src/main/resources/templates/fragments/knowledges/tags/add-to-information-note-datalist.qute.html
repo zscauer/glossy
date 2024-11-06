@@ -1,0 +1,11 @@
+{@com.github.zscauer.glsy.common.PageableSearchTemplateDataContainer<com.github.zscauer.glsy.knowledges.Tag> dataContainer}
+
+{#fragment id=add_to_information_note_selection_container}
+<datalist id="tags-add-to-information-note-datalist">
+{#if dataContainer != null}
+{#each dataContainer.content()}
+    <option value='{it.name()}'></option>
+{/each}
+{/if}
+</datalist>
+{/fragment}
