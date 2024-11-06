@@ -1,0 +1,76 @@
+{@com.github.zscauer.glsy.common.TemplateDataContainer dataContainer}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+{#include fragments/common/head/head /}
+
+<body id="mainBody">
+    <div id="main-frame" class="flex min-h-svh flex-col align-middle justify-between">
+        <!-- Desktop Header -->
+        <header
+            class="flex min-w-full justify-stretch self-top border-b-2 border-purple-800 shadow-xl bg-slate-800 rounded-ld">
+            <div id="navigation" class="my-2 px-3 flex flex-row justify-between min-w-full">
+                <button hx-get="/navigation/mobile" hx-target="#main-frame" hx-swap="afterend transition:true"
+                    class="md:hidden text-purple-400 hover:text-purple-600 text-lg inline-flex rounded-lg bg-slate-900 hover:bg-slate-950 justify-center items-center px-2">
+                    <div class="inline-flex rounded-lg justify-center items-center">
+                        <svg id="menu-bars-icon" class="w-[37px] h-[37px]" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="M5 7h14M5 12h14M5 17h14" />
+                        </svg>
+                    </div>
+                </button>
+                <div id="header-logo" class="flex flex-row items-center gap-3">
+                    <img class="max-w-[36px] max-h-[36px]" src="/img/logo_book.webp"
+                        alt="{msg_global:service_name()} logo" />
+                    <a href="/" class="flex items-center justify-center">
+                        <button class="text-purple-400 text-2xl font-semibold uppercase hover:text-purple-600">
+                            {msg_global:service_name()}
+                        </button>
+                    </a>
+                </div>
+                <div id="header-language-selector"
+                    class="flex justify-center items-center gap-2 px-2 rounded-md bg-slate-700">
+                    <button id="change-language-to-ru-button" class="text-blue-800 text-3xl font-semibold uppercase"
+                        hx-put="/language/ru" hx-swap="none">
+                        🇷🇺</button>
+                    <button id="change-language-to-en-button" class="text-blue-800 text-3xl font-semibold uppercase"
+                        hx-put="/language/en" hx-swap="none">
+                        🇬🇧</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-row grow w-full justify-stretch my-auto items-stretch">
+            <aside class="hidden md:flex flex-col shadow-xl bg-slate-950 min-w-[250px] max-w-[250px] rounded-lg m-2">
+                {#include fragments/common/navigation-main /}
+            </aside>
+
+            <div id="searcheable-content-section"
+                class="flex flex-col grow items-center min-w-[320px] sm:max-w-[800px] mx-auto py-12 px-3 overflow-y-auto">
+
+                {#include fragments/knowledges/search-panel-global /}
+
+                <div id="content-section" class="flex grow w-full items-stretch justify-center">
+                    <!-- CONTENT -->
+                    {#if dataContainer == null}
+                    {#include fragments/start-frame /}
+                    {#else if dataContainer.redirected()}
+                    <div id="redirected-content" hx-get={dataContainer.redirectContent()} hx-trigger="load"
+                        hx-target="#redirected-content" hx-swap="outerHTML transition:true">
+                    </div>
+                    {#else if dataContainer.errorPageContainer()}
+                    {#include fragments/common/error /}
+                    {#else}
+                    {#include fragments/start-frame /}
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        {#include fragments/common/footer /}
+    </div>
+</body>
+
+</html>

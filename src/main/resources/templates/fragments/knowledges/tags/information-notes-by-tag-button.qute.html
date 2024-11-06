@@ -1,0 +1,23 @@
+{@com.github.zscauer.glsy.common.TemplateDataContainer<com.github.zscauer.glsy.knowledges.InformationNote> dataContainer}
+{@com.github.zscauer.glsy.knowledges.Tag tag}
+{@java.lang.String contentSection}
+{@java.lang.String swap}
+{@java.lang.Boolean showDeleteButton}
+
+{#fragment id=information_notes_by_tag_button}
+<div id="information-notes-by-tag-button-{tag.id()}"
+    class="flex flex-row items-center gap-1 purpleTagActive cursor-pointer"
+    hx-get="/knowledges/informationNotes/tag/{tag.id}" hx-trigger="click consume" hx-target=#{contentSection}
+    hx-push-url="true" hx-swap={swap ?: "outerHTML transition:true" }>
+    <div>#{tag.name()}</div>
+    {#if showDeleteButton && security:havePrivileges(dataContainer, AccessibleContent:INFORMATION_NOTE, Privilege:UPDATE)}
+    <button id="delete-tag-button-{tag.id()}"
+        class="flex items-center rounded-full p-1 border-red-500 text-red-500 hover:text-slate-300 hover:bg-red-500"
+        hx-patch="/knowledges/informationNotes/{dataContainer.content().id()}/tags/{tag.id()}/delete"
+        hx-target="#information-note-view" hx-swap="outerHTML transition:true" hx-trigger="click consume"
+        hx-confirm='{msg_knowledges:information_note_exclude_tag_confirmation()}'>
+        {#include fragments/common/icons/x-icon size='4' /}
+    </button>
+    {/if}
+</div>
+{/fragment}

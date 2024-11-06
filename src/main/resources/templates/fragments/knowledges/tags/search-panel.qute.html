@@ -1,0 +1,21 @@
+{@com.github.zscauer.glsy.common.PageableSearchTemplateDataContainer searchDataContainer}
+
+{#fragment id=tags_search_panel}
+<div id="tags-search-panel" class="flex flex-row w-full gap-2">
+    <div id="tags-search-field" class="flex flex-row relative w-full">
+        <span class="h-full absolute inset-y-0 left-0 flex items-center px-2 text-slate-500">
+            {#include fragments/common/icons/hashtag-icon /}
+        </span>
+        <input id="tags-search-input" type="search" name="inputed-value" hx-get="/knowledges/tags" hx-trigger="keyup[keyCode==13]"
+            hx-target="#content-section" hx-swap="innerHTML transition:true" hx-include="[name='inputed-value']"
+            hx-vals='{"pageSize": "40"}' placeholder='{msg_knowledges:tags_search_field_placeholder()}'
+            class="appearance-none rounded-xs border-slate-400 flex pl-10 p-2 w-full bg-slate-800 text-sm placeholder-slate-500 text-slate-300" />
+    </div>
+
+    <button id="search-tags-button" type="button" class="justify-center purpleSearchButtonActive"
+        hx-get="/knowledges/tags" hx-push-url="true" hx-target="#content-section" hx-swap="innerHTML transition:true"
+        hx-include="[name='inputed-value']" hx-vals='{"pageSize": "40"}'>
+        {#include fragments/common/icons/search-lens-icon /}
+    </button>
+</div>
+{/fragment}

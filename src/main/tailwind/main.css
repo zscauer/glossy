@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+@source '../resources/templates/**/*.html';
+
+/* @custom-variant hover (&:hover); */
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+/* @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+} */
+
+body {
+    @apply flex flex-col min-h-full w-full bg-slate-900;
+}
+
+button,
+tr {
+    transition: all 250ms ease-out;
+}
+
+button:enabled {
+    @apply cursor-pointer;
+}
+
+/* table,
+thead,
+tbody,
+tfoot,
+th,
+td {
+  padding: 0;
+  border-spacing: 0;
+} */
+
+/* Classes */
+.debugBorder {
+    @apply border-2 border-red-600;
+}
+
+.debugBorder2 {
+    @apply border-2 border-blue-600;
+}
+
+.standartText {
+    @apply text-slate-300;
+}
+
+.purpleTagActive {
+    @apply text-slate-300 bg-purple-950 hover:bg-purple-900 rounded-full px-3 py-1;
+}
+
+.inputFieldBase {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full h-8 p-1.5;
+}
+
+.purpleButtonActive {
+    @apply text-slate-200 bg-purple-950 hover:bg-purple-900  border-purple-900 shadow-lg font-medium rounded-md text-sm px-5 py-2 text-center items-center;
+}
+
+.greenButtonActive {
+    @apply text-slate-200 bg-green-800 hover:bg-green-700  border-green-700 shadow-lg font-medium rounded-md text-sm px-3 py-2 text-center items-center;
+}
+
+.redButtonActive {
+    @apply text-slate-200 bg-red-800 hover:bg-red-700  border-red-700 shadow-lg font-medium rounded-md text-sm px-3 py-2 text-center items-center;
+}
+
+.grayButtonDisabled {
+    @apply text-slate-500 bg-slate-800 border border-slate-700 font-medium rounded-md text-sm px-5 py-2 text-center;
+}
+
+.standartToggle {
+    @apply w-11 h-6 rounded-full bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-gray-700 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border-gray-700 peer-checked:bg-blue-800;
+}
+
+.closeModalButton {
+    @apply text-gray-800 hover:text-white hover:bg-red-700 rounded-md text-sm w-8 h-8 ms-auto inline-flex justify-center items-center;
+}
+
+.purpleSearchButtonActive {
+    @apply text-slate-200 bg-purple-950 hover:bg-purple-800 shadow-lg font-medium rounded-md text-sm px-3 py-1 text-center items-center;
+}
+
+.tableTitle {
+    @apply text-center font-semibold uppercase leading-tight tracking-wider;
+}
+
+.grayTableRow:nth-child(odd) {
+    @apply bg-slate-900 hover:bg-purple-950;
+}
+
+.grayTableRow:nth-child(even) {
+    @apply bg-slate-800 hover:bg-purple-950;
+}
+
+.tablePaginationContainerTransparent {
+    @apply py-4 flex flex-col items-center;
+}
+
+.pageNavigationTransparent-active {
+    @apply text-purple-600 hover:bg-purple-900 hover:text-slate-400 hover:rounded-md;
+}
+
+.pageNavigationTransparent-inActive {
+    @apply text-slate-700;
+}
+
+.fade-out-swap.htmx-swapping {
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+}

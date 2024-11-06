@@ -1,0 +1,14 @@
+{@com.github.zscauer.glsy.knowledges.TagStatistics tagStatistics}
+{@java.lang.String contentSection}
+{@java.lang.String swap}
+
+{#fragment id=information_notes_by_tag_statistics_button}
+<div id="information-notes-by-tag-statistics-button-{tagStatistics.tag().id()}"
+    hx-get="/knowledges/informationNotes/tag/{tagStatistics.tag().id()}" hx-target=#{contentSection} hx-push-url="true"
+    hx-swap={swap ?: "outerHTML transition:true"}>
+    <button class="flex flex-row gap-1 items-center text-left purpleTagActive">
+        <div>#{tagStatistics.tag().name()}</div>
+        <div class="bg-purple-800 rounded-full px-3">{tagStatistics.usages()}</div>
+    </button>
+</div>
+{/fragment}

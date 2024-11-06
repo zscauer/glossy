@@ -1,0 +1,48 @@
+{#fragment id=footer}
+<footer class="bg-black mt-auto">
+    <div class="w-full mx-auto px-4 py-2 items-stretch">
+        <div class="w-full sm:flex sm:items-center justify-between text-slate-400">
+
+            <div class="flex flex-row gap-1 text-sm font-medium justify-center items-end">
+                <span class="whitespace-nowrap">
+                    Powered by
+                </span>
+                <a href="https://quarkus.io" target="_blank"
+                    class="flex flex-row gap-1 justify-center items-end font-semibold whitespace-nowrap hover:underline">
+                    <span class="font-bold">
+                        Quarkus
+                    </span>
+                    <img class="max-w-[22px] max-h-[22px] mt-auto mb-auto" src="/img/quarkus_logo_color.webp"
+                        alt="Quarkus logo" />
+                </a>
+            </div>
+
+            <a href="https://github.com/zscauer/glossy" target="_blank"
+                class="flex items-center justify-center">
+                <button class="flex flex-row gap-1 justify-center items-end text-slate-200 hover:text-purple-600">
+                    <span class="text-2xl font-semibold whitespace-nowrap uppercase">
+                        {msg_global:service_name()}
+                    </span>
+                    <span class="whitespace-nowrap">
+                        on GitHub
+                    </span>
+                    <img class="max-w-[24px] max-h-[24px] mt-auto mb-auto" src="/img/github_icon_white.webp"
+                        alt="Github logo" />
+                </button>
+            </a>
+
+            <div class="flex flex-col sm:flex-row gap-1 sm:gap-3 my-1 sm:my-0">
+                <div class="flex items-center justify-center text-sm gap-1">
+                    <div>
+                        {msg_global:service_version()}:
+                    </div>
+                    <div>
+                        {getServiceVersion()}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+{/fragment}

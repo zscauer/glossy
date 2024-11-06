@@ -1,0 +1,33 @@
+{#fragment id=not_implemented_modal}
+<div id="not-implemented-modal"
+    class="min-h-svh fixed flex flex-col top-0 right-0 left-0 text-slate-300 items-center justify-center bg-slate-950/90">
+
+    <!-- Modal content -->
+    <div class="flex flex-col bg-slate-900 rounded-md shadow-xs w-full max-w-[550px] max-h-[500px] m-3">
+        <!-- Modal header -->
+        <div class="flex items-center p-4 border-b border-black text-slate-400 rounded-t bg-slate-800">
+            <h3 class="text-xl font-semibold max-w-[350px]">
+                {msg_global:oops()}
+            </h3>
+            <button id="close-modal-frame-button" type="button" class="closeModalButton">
+                <div class="inline-flex w-8 h-8 text-slate-300 justify-center items-center" hx-get="/blank"
+                    hx-target="#request-access-modal" hx-swap="delete transition:true">
+                    {#include fragments/common/icons/x-icon /}
+                </div>
+            </button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="p-4 flex flex-col items-center  md:min-w-[450px]">
+            <p class="text-center text-lg whitespace-pre-line">
+                {msg_global:not_implemented_text()}
+            </p>
+            <br>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="flex flex-row justify-end p-4 border-t border-black rounded-b mt-auto">
+        </div>
+    </div>
+</div>
+{/fragment}

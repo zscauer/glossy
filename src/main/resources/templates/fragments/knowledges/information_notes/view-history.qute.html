@@ -1,0 +1,48 @@
+{@com.github.zscauer.glsy.common.PageableTemplateDataContainer<com.github.zscauer.glsy.knowledges.InformationNoteHistory> dataContainer}
+    
+    {#fragment id=information_note_history_view}
+    <div id="information-note-history-view" class="flex flex-col grow justify-stretch items-stretch gap-3">
+
+        {#include fragments/common/message-area /}
+
+        <div class="flex flex-col overflow-x-auto rounded-md">
+            <table class="leading-normal shadow-xs text-slate-300">
+                <thead class="text-sm text-slate-400 bg-slate-700 tableTitle">
+                    <tr>
+                        <th class="p-1 border-r border-slate-900">
+                            {msg_knowledges:information_notes_history_event_title()}
+                        </th>
+                        <th class="p-1 border-r border-slate-900">
+                            {msg_knowledges:information_notes_history_event_time_title()}
+                        </th>
+                        <th class="p-1">
+                            {msg_knowledges:information_notes_history_author_title()}
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {#each dataContainer.content()}
+                    <tr class="grayTableRow text-sm text-center cursor-pointer border-t border-slate-700"
+                        hx-get="/knowledges/informationNotes/{it.informationNoteId()}/history/{it.id()}" hx-target="#main-frame"
+                        hx-swap="afterend transition:true">
+                        <td class="px-3 py-1 border-r border-slate-900 max-w-[180px] text-ellipsis overflow-clip whitespace-nowrap">
+                            {it.event()}
+                        </td>
+                        <td class="px-3 py-1 border-r border-slate-900 max-w-[180px] text-ellipsis overflow-clip whitespace-nowrap">
+                            {#if it.eventTime() != null} {it.eventTime().format(msg_global:date_time_seconds_format())} {/if}
+                        </td>
+                        <td class="px-3 py-1 max-w-sm text-ellipsis overflow-clip whitespace-nowrap">
+                            {it.author()}
+                        </td>
+                    </tr>
+                    {/each}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="table-pagination-container" class="tablePaginationContainerTransparent mt-auto">
+            {#include fragments/common/pagination-transparent contentSection = 'information-note-history-view' /}
+        </div>
+    </div>
+    {/fragment}

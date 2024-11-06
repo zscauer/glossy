@@ -1,0 +1,49 @@
+quarkus:
+  package:
+    jar:
+      add-runner-suffix: false
+      type: UBER_JAR
+
+  banner:
+    path: banner.txt
+
+  default-locale: ${GLOSSY_DEFAULT_LOCALE:en}
+
+  http:
+    port: ${GLOSSY_HTTP_PORT:8780}
+
+  qute:
+    suffixes:
+      - qute.html
+
+  native:
+    container-build: ${GLOSSY_NATIVE_CONTAINER_BIULD:false}
+    additional-build-args: ${GLOSSY_NATIVE_ADDITIONAL_BUILD_ARGS:-R:MaxRAM=32m}
+    container-runtime-options: ${GLOSSY_NATIVE_CONTAINER_RUNTIME_OPTIONS:}
+    resources:
+      includes:
+        - db/*/**
+        - messages/**
+        - templates/*/**
+
+configuration:
+  datasource:
+    db-kind: ${GLOSSY_DATASOURCE_DRIVER}
+    location: ${GLOSSY_DATASOURCE_LOCATION}
+    connection-parameters: ${GLOSSY_DATASOURCE_CONNECTION_PARAMETERS}
+    username: ${GLOSSY_DATASOURCE_LOGIN:glsy}
+    password: ${GLOSSY_DATASOURCE_PWD:glsy}
+
+  security:
+    access-mode:
+      moderator:
+        secret: ${GLOSSY_SECURITY_PROFILE_MODERATOR_SECRET:glsy}
+      admin:
+        secret: ${GLOSSY_SECURITY_PROFILE_ADMIN_SECRET:glsy}
+
+  limits:
+    max-page-size: 40
+
+  history:
+    information-notes:
+      enabled: ${GLOSSY_HISTORY_INFORMATION_NOTES_ENABLED:true}

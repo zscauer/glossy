@@ -1,0 +1,10 @@
+{#fragment id=not_implemented}
+<div id="not_implemented"
+    class="flex flex-col justify-between bg-slate-950 text-center text-purple-800 gap-6 max-w-md max-h-[600px] m-auto min-w-md min-h-[200px] bg-gray-200 p-5 rounded-md">
+    {#insert fragments/common/message-area /}
+    <div class="flex justify-center">{msg_global:not_implemented_text()}</div>
+    <a id="home-page-button" href="/" class="purpleButtonActive uppercase my-3">
+        {msg_global:go_to_main_page()}
+    </a>
+</div>
+{/fragment}

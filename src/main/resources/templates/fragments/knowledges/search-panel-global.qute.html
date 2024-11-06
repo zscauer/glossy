@@ -1,0 +1,46 @@
+{#fragment id=search_panel_global}
+<div id="search-panel-global-container"
+    class="flex flex-col items-center justify-center w-full max-w-lg bg-slate-950 gap-2 px-3 pb-3 pt-1 rounded-lg">
+
+    <ul id="search-panel-sections-list"
+        class="flex flex-wrap gap-1 text-sm font-medium text-center text-slate-400 mr-auto">
+        <li>
+            <input type="radio" id="search-panel-section-information-notes-selector" name="searchPanelSelectedSection"
+                value="true" checked class="hidden peer" hx-get="/knowledges/searchPanel"
+                hx-vals='{"searchSource": "{SearchPanelSource:INFROMATION_NOTES}"}' hx-target="#search-section-container"
+                hx-swap="innerHTML transition:true">
+            <label for="search-panel-section-information-notes-selector" id="search-panel-section-information-notes-selector-label"
+                class="flex flex-row items-center gap-1 py-1 cursor-pointer hover:text-slate-300 hover:border-b-4 hover:border-purple-600 peer-checked:border-b-4 peer-checked:border-purple-900 peer-checked:hover:border-purple-600">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                        <path
+                            d="M5 3.5A1.5 1.5 0 0 1 6.5 2h3A1.5 1.5 0 0 1 11 3.5H5ZM4.5 5A1.5 1.5 0 0 0 3 6.5v.041a3.02 3.02 0 0 1 .5-.041h9c.17 0 .337.014.5.041V6.5A1.5 1.5 0 0 0 11.5 5h-7ZM12.5 8h-9A1.5 1.5 0 0 0 2 9.5v3A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5v-3A1.5 1.5 0 0 0 12.5 8Z" />
+                    </svg>
+                </div>
+                <div>{msg_knowledges:information_notes()}</div>
+            </label>
+        </li>
+
+        <li>
+            <input type="radio" id="search-panel-section-tags-selector" name="searchPanelSelectedSection" value="false"
+                class="hidden peer" hx-get="/knowledges/searchPanel" hx-vals='{"searchSource": "{SearchPanelSource:TAGS}"}'
+                hx-target="#search-section-container" hx-swap="innerHTML transition:true">
+            <label for="search-panel-section-tags-selector"
+                class="flex flex-row items-center py-1 cursor-pointer hover:text-slate-300 hover:border-b-4 hover:border-purple-600 peer-checked:border-b-4 peer-checked:border-purple-900 peer-checked:hover:border-purple-600">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+                        <path fill-rule="evenodd"
+                            d="M7.487 2.89a.75.75 0 1 0-1.474-.28l-.455 2.388H3.61a.75.75 0 0 0 0 1.5h1.663l-.571 2.998H2.75a.75.75 0 0 0 0 1.5h1.666l-.403 2.114a.75.75 0 0 0 1.474.28l.456-2.394h2.973l-.403 2.114a.75.75 0 0 0 1.474.28l.456-2.394h1.947a.75.75 0 0 0 0-1.5h-1.661l.57-2.998h1.95a.75.75 0 0 0 0-1.5h-1.664l.402-2.108a.75.75 0 0 0-1.474-.28l-.455 2.388H7.085l.402-2.108ZM6.8 6.498l-.571 2.998h2.973l.57-2.998H6.8Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div>{msg_knowledges:tags()}</div>
+            </label>
+        </li>
+    </ul>
+
+    <div id="search-section-container" class="flex flex-row justify-center w-full">
+        {#include fragments/knowledges/information_notes/search-panel /}
+    </div>
+</div>
+{/fragment}

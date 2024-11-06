@@ -1,0 +1,11 @@
+{#fragment id=navigation_mobile}
+<div id="mobile-navigation-modal"
+    class="fixed flex flex-col md:hidden top-0 right-0 left-0 bottom-0 items-start justify-start bg-black/80"
+    hx-get="/blank" hx-target="#mobile-navigation-modal" hx-swap="delete transition:true">
+
+    <div id="mobileNavigationContainer"
+        class="flex flex-col h-full border border-purple-900 shadow-xl bg-slate-950 min-w-[250px] max-w-[250px] rounded-lg m-2 overflow-y-auto">
+        {#include fragments/common/navigation-main /}
+    </div>
+</div>
+{/fragment}

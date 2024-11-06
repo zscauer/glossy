@@ -1,0 +1,54 @@
+{@com.github.zscauer.glsy.common.TemplateDataContainer<com.github.zscauer.glsy.knowledges.InformationNoteHistory> dataContainer}
+
+    {#fragment id=history_record_modal}
+    <div id="history-record-modal"
+        class="min-h-svh fixed flex flex-col top-0 right-0 left-0 text-slate-300 items-center justify-center bg-slate-950/90">
+
+        <!-- Modal content -->
+        <div class="flex flex-col bg-slate-900 rounded-md shadow-xs w-full h-full max-w-[550px] max-h-[500px] m-3">
+            <!-- Modal header -->
+            <div class="flex items-center p-4 border-b border-black text-slate-400 rounded-t bg-slate-800">
+                <h3 class="text-xl font-semibold">
+                {#if dataContainer == null || dataContainer.isEmpty()}
+                    {msg_global:oops()}
+                {#else}
+                    {msg_knowledges:information_notes_history_record_view_title(dataContainer.content().eventTime().format(msg_global:date_time_seconds_format()))}
+                {/if}
+                </h3>
+                <button id="close-modal-frame-button" type="button" class="closeModalButton">
+                    <div class="inline-flex w-8 h-8 text-slate-300 justify-center items-center" hx-get="/blank"
+                        hx-target="#history-record-modal" hx-swap="delete transition:true">
+                        {#include fragments/common/icons/x-icon /}
+                    </div>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="p-4 flex flex-col items-center gap-3 md:min-w-[450px]">
+
+                {#include fragments/common/message-area /}
+
+                {#if dataContainer != null && !dataContainer.isEmpty()}
+                <div id="information-note-history-record-container" class="flex flex-col justify-stretch gap-3 w-full">
+                    <div id="information-note-history-record-details"
+                        class="flex flex-row items-center gap-3 justify-between w-full">
+                        <input id="information-note-history-record-event" disabled value='{dataContainer.content().event()}'
+                            class="appearance-none rounded-xs w-full border-slate-400 flex p-2 bg-slate-800 text-sm text-center placeholder-slate-500 text-slate-300"
+                            placeholder='{msg_knowledges:information_note_upsert_name_field_placeholder()}' />
+                        <div class="lowercase whitespace-nowrap text-center">{msg_knowledges:information_notes_history_record_view_from_address()}</div>
+                        <input id="information-note-history-record-author" disabled value='{dataContainer.content().author()}'
+                            class="appearance-none rounded-xs w-full border-slate-400 flex p-2 bg-slate-800 text-sm text-center placeholder-slate-500 text-slate-300"
+                            placeholder='{msg_knowledges:information_note_upsert_name_field_placeholder()}' />
+                    </div>
+                    <div id="information-note-history-record-note-state" class="flex flex-row items-center gap-3 w-full">
+                        <textarea disabled
+                            class="resize-y appearance-none rounded-xs w-full max-h-[300px] border-slate-400 flex p-2 bg-slate-800 text-sm placeholder-slate-500 text-slate-300"
+                            rows="10" cols="25" placeholder='{msg_knowledges:information_note_upsert_description_field_placeholder()}'
+                            >{#if !dataContainer.isEmpty()}{dataContainer.content().state()}{/}</textarea>
+                    </div>
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+    {/fragment}

@@ -1,0 +1,9 @@
+<div id="start-frame" class="flex flex-col grow justify-stretch items-stretch gap-6">
+    <div id="welcome-sections" class="flex flex-col items-center">
+        <section id="welcome-section-01" class="flex flex-col min-w-full items-start standartText m-4">
+            <div hidden hx-get="/knowledges/informationNotes" hx-push-url="true" hx-target="#content-section"
+                hx-trigger="load" hx-swap="innerHTML transition:true">
+            </div>
+        </section>
+    </div>
+</div>

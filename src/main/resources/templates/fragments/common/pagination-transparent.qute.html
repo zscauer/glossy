@@ -1,0 +1,26 @@
+{@java.lang.String contentSection}
+{@com.github.zscauer.glsy.common.PageableTemplateDataContainer dataContainer}
+
+{#fragment id=pagination_transparent}
+{#if dataContainer != null}
+<div class="flex">
+    <button id="previous-page-button" {#if dataContainer.currentPage() < 2} disabled="true" {/}
+        hx-get={dataContainer.changePageEndpoint()} hx-vals='{"page":"{dataContainer.previousPage()}", "pageSize":"{dataContainer.pageSize()}"}' hx-push-url="true"
+        hx-include="[name='inputed-value']" hx-target="#{contentSection}" hx-swap="outerHTML transition:true"
+        class="align-middle {#if dataContainer.currentPage() < 2} pageNavigationTransparent-inActive {#else} pageNavigationTransparent-active {/if}">
+        <div> {#include fragments/common/icons/previous-page-icon /}</div>
+    </button>
+
+    <span id="current-page" class="align-middle text-xl text-slate-400 mx-2">
+        {dataContainer.currentPage()}
+    </span>
+
+    <button id="next-page-button" {#if dataContainer.lastPage()} disabled="true" {/}
+        hx-get={dataContainer.changePageEndpoint()} hx-vals='{"page":"{dataContainer.nextPage()}", "pageSize":"{dataContainer.pageSize()}"}' hx-push-url="true"
+        hx-include="[name='inputed-value']" hx-target="#{contentSection}" hx-swap="outerHTML transition:true"
+        class="align-middle {#if dataContainer.lastPage()} pageNavigationTransparent-inActive {#else} pageNavigationTransparent-active {/if}">
+        <div> {#include fragments/common/icons/next-page-icon /}</div>
+    </button>
+</div>
+{/if}
+{/fragment}

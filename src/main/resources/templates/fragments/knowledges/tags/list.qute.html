@@ -1,0 +1,23 @@
+{@com.github.zscauer.glsy.common.PageableTemplateDataContainer<com.github.zscauer.glsy.knowledges.TagStatistics> dataContainer}
+
+    {#fragment id=tags_list}
+    <div id="tags-list" class="flex flex-col w-full max-w-xl justify-stretch align-middle gap-3">
+
+        {#include fragments/common/message-area /}
+
+        {#if dataContainer != null && !dataContainer.isEmpty()}
+        <div class="flex flex-row flex-wrap w-full justify-start gap-3 sm:gap-5 p-5">
+            {#each dataContainer.content()}
+            <div class="flex flex-row flex-wrap align-middle text-2xl gap-2">
+                {#include fragments/knowledges/tags/information-notes-by-tag-statistics-button tagStatistics=it
+                contentSection="tags-list" /}
+            </div>
+            {/each}
+        </div>
+
+        <div id="table-pagination-container" class="tablePaginationContainerTransparent mt-auto">
+            {#include fragments/common/pagination-transparent contentSection = 'tags-list' /}
+        </div>
+        {/if}
+    </div>
+    {/fragment}

@@ -1,0 +1,40 @@
+{@com.github.zscauer.glsy.common.PageableTemplateDataContainer<com.github.zscauer.glsy.knowledges.InformationNote> dataContainer}
+    
+    {#fragment id=information_notes_view}
+    <div id="information-notes-list" class="flex flex-col grow justify-stretch items-stretch gap-3">
+
+        {#include fragments/common/message-area /}
+
+        {#if dataContainer != null && !dataContainer.isEmpty()}
+        <div class="grid sm:grid-cols-2 w-full justify-center gap-3 sm:gap-5 p-5">
+            {#each dataContainer.content()}
+            <button id="information-notes-card-{it.id()}"
+                class="inline-flex flex-col gap-1 border-slate-600 bg-slate-700 py-2 px-3 rounded-lg hover:bg-slate-600"
+                hx-get="/knowledges/informationNotes/{it.id()}" hx-push-url="true" hx-target="#information-notes-list"
+                hx-swap="outerHTML transition:true">
+                <div class="flex flex-row flex-wrap">
+                    <div class="text-slate-100 mr-2">{msg_knowledges:information_note_name()}:</div>
+                    <div class="standartText">{it.name()}</div>
+                </div>
+                <div class="flex flex-row flex-wrap">
+                    <div class="text-slate-100 mr-2">{msg_knowledges:information_note_description()}:</div>
+                    <div class="standartText">{it.description()}</div>
+                </div>
+                <div class="flex flex-row flex-wrap">
+                    <div class="flex flex-row flex-wrap align-middle text-sm gap-2">
+                        {#each it.tags()}
+                        {#include fragments/knowledges/tags/information-notes-by-tag-button tag=it
+                        contentSection="information-notes-list" showDeleteButton=false/}
+                        {/each}
+                    </div>
+                </div>
+            </button>
+            {/each}
+        </div>
+
+        <div id="table-pagination-container" class="tablePaginationContainerTransparent mt-auto">
+            {#include fragments/common/pagination-transparent contentSection = 'information-notes-list' /}
+        </div>
+        {/if}
+    </div>
+    {/fragment}
