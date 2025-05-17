@@ -38,7 +38,7 @@ public class GlobalResourceExceptionMapper implements ExceptionMapper<Exception>
             templateInstance = CommonTemplates.error(dataContainer);
         } else {
             // processing full page for direct requests
-            templateInstance = MainResource.spaTemplateLocalized(dataContainer, null);
+            templateInstance = MainTemplatesResource.spaTemplateLocalized(dataContainer, null);
         }
 
         return Response
@@ -49,7 +49,7 @@ public class GlobalResourceExceptionMapper implements ExceptionMapper<Exception>
     }
 
     private void logException(final Exception exception) {
-        // TODO: handle exception messages by exception type
+        // TODO: handle error messages by error type
         log.error(exception.getMessage());
     }
 

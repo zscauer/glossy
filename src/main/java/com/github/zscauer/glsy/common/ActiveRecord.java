@@ -1,9 +1,6 @@
 package com.github.zscauer.glsy.common;
 
-import io.agroal.api.AgroalDataSource;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.annotation.Nonnull;
-import jakarta.enterprise.event.Observes;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;

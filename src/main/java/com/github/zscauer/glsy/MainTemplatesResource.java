@@ -39,7 +39,7 @@ import static com.github.zscauer.glsy.common.ResourcePaths.PATH_RESOURCE_MAIN;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @SuppressWarnings("unused")
-public final class MainResource {
+public final class MainTemplatesResource {
 
     SecurityProvider securityProvider;
 
@@ -126,7 +126,7 @@ public final class MainResource {
         if (!requestParams.hxRequest()) {
             final var dataContainer = new TemplateDataContainer<>(null, securityProvider.define(requestParams));
             dataContainer.redirectContent("%s%s".formatted(ResourcePaths.PATH_RESOURCE_MAIN, PATH_CONSTRUCTION));
-            result = MainResource.Templates.SPA(dataContainer);
+            result = MainTemplatesResource.Templates.SPA(dataContainer);
         } else {
             result = Templating.localized(CommonTemplates.construction(), requestParams.userLanguage());
         }
@@ -143,7 +143,7 @@ public final class MainResource {
         if (!requestParams.hxRequest()) {
             final var dataContainer = new TemplateDataContainer<>(null, securityProvider.define(requestParams));
             dataContainer.redirectContent("%s%s".formatted(ResourcePaths.PATH_RESOURCE_MAIN, PATH_NOT_IMPLEMENTED));
-            result = MainResource.Templates.SPA(dataContainer);
+            result = MainTemplatesResource.Templates.SPA(dataContainer);
         } else {
             result = Templating.localized(CommonTemplates.notImplemented(), requestParams.userLanguage());
         }

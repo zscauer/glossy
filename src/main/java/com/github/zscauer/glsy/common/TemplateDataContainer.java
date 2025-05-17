@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,21 +21,22 @@ import java.util.List;
 @TemplateData
 @Getter
 @Accessors(fluent = true, chain = true)
-@FieldDefaults(level = AccessLevel.PROTECTED)
+@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 public sealed class TemplateDataContainer<T> permits
         TemplateDataContainer.EmptyTemplateDataContainer,
         PageableTemplateDataContainer,
         ErrorPageTemplateDataContainer {
 
+    @NonFinal
     @Setter
     @Nullable
     String redirectContent;
     @Nullable
-    final T content;
+    T content;
     AccessProfile accessProfile;
 
-    final List<String> errorMessages = new ArrayList<>();
-    final List<String> successMessages = new ArrayList<>();
+    List<String> errorMessages = new ArrayList<>();
+    List<String> successMessages = new ArrayList<>();
 
     private static final TemplateDataContainer<?> EMPTY_CONTAINER = new TemplateDataContainer<>(null, null).createEmpty();
 

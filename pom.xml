@@ -5,7 +5,7 @@
     <groupId>com.github.zscauer.glsy</groupId>
     <artifactId>glossy</artifactId>
     <name>${project.artifactId}</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <description>Self-hosted glossary</description>
 
     <properties>
@@ -15,12 +15,13 @@
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <surefire-plugin.version>3.3.1</surefire-plugin.version>
 
+        <lombok.version>1.18.36</lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.17.0</quarkus.platform.version>
+        <quarkus.platform.version>3.22.2</quarkus.platform.version>
 
         <skipITs>true</skipITs>
         <skipTests>true</skipTests>
@@ -42,7 +43,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -124,7 +125,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.36</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                     <parameters>true</parameters>

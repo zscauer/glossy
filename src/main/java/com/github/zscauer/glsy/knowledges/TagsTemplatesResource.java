@@ -1,6 +1,6 @@
 package com.github.zscauer.glsy.knowledges;
 
-import com.github.zscauer.glsy.MainResource;
+import com.github.zscauer.glsy.MainTemplatesResource;
 import com.github.zscauer.glsy.common.PageableRequestParams;
 import com.github.zscauer.glsy.common.PageableSearchRequestParams;
 import com.github.zscauer.glsy.common.PageableSearchTemplateDataContainer;
@@ -40,7 +40,7 @@ import static com.github.zscauer.glsy.common.ResourcePaths.PATH_RESOURCE_TAGS;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @SuppressWarnings("unused")
-final class TagsResource {
+final class TagsTemplatesResource {
 
     SecurityProvider securityProvider;
 
@@ -68,15 +68,15 @@ final class TagsResource {
 
     @GET
     public RestResponse<TemplateInstance> tags(@BeanParam final PageableSearchRequestParams requestParams,
-                                                     @QueryParam("destination") final TemplateDestination destination) {
-        final ResponseBuilder<TemplateInstance> responseBuilder = MainResource.createResponseBuilder(requestParams);
+                                               @QueryParam("destination") final TemplateDestination destination) {
+        final ResponseBuilder<TemplateInstance> responseBuilder = MainTemplatesResource.createResponseBuilder(requestParams);
         final AccessProfile userAccess = securityProvider.define(requestParams);
 
         TemplateInstance result;
         if (!requestParams.hxRequest()) {
             final var dataContainer = new TemplateDataContainer<>(null, userAccess);
             dataContainer.redirectContent(requestParams.parameterizedPath(PATH_RESOURCE_TAGS));
-            result = MainResource.spaTemplateLocalized(dataContainer, requestParams);
+            result = MainTemplatesResource.spaTemplateLocalized(dataContainer, requestParams);
         } else {
             switch (destination) {
                 case INFORMATION_NOTE -> {
@@ -101,12 +101,12 @@ final class TagsResource {
     @GET
     @Path(PATH_TAGS_MOST_USED)
     public RestResponse<TemplateInstance> mostUsedTags(@BeanParam final PageableRequestParams requestParams,
-                                                             @QueryParam("destination") final TemplateDestination destination) {
-        final ResponseBuilder<TemplateInstance> responseBuilder = MainResource.createResponseBuilder(requestParams);
+                                                       @QueryParam("destination") final TemplateDestination destination) {
+        final ResponseBuilder<TemplateInstance> responseBuilder = MainTemplatesResource.createResponseBuilder(requestParams);
 
         TemplateInstance result;
         if (!requestParams.hxRequest() || destination == null) {
-            result = MainResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
+            result = MainTemplatesResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
         } else {
             final List<TagStatistics> found = TagStatistics.findAllPopular(requestParams);
             final var dataContainer = PageableTemplateDataContainer.wrapContent(
@@ -115,7 +115,7 @@ final class TagsResource {
             switch (destination) {
                 case ASIDE ->
                         result = Templating.localized(Templates.mostUsedForAside(dataContainer), requestParams.userLanguage());
-                default -> result = MainResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
+                default -> result = MainTemplatesResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
             }
         }
 

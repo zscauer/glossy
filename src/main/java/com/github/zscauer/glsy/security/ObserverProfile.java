@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,8 +23,7 @@ public final class ObserverProfile extends AccessProfile {
 
     private static final Map<AccessibleContent, Privilege> PRIVILEGES = new ConcurrentHashMap<>(2);
 
-    ObserverProfile() throws NoSuchAlgorithmException {
-    }
+    ObserverProfile() {}
 
     @Override
     public boolean authorized(@Nullable final RequestParams requestParams) {

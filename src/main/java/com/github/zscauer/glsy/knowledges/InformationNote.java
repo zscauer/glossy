@@ -60,6 +60,7 @@ public final class InformationNote extends ActiveRecord {
     }
 
     @Nonnull
+    @SuppressWarnings("UnusedReturnValue")
     public InformationNote save() throws IncompleteRepositoryOperationException {
         checkNonNullableFields(getClass(), name, description);
 
@@ -298,7 +299,7 @@ public final class InformationNote extends ActiveRecord {
     }
 
     private static InformationNote readFromResultSet(final ResultSet rs) throws SQLException {
-        final UUID noteId = rs.getObject("id", UUID.class);
+        final UUID noteId = rs.getObject("information_note_id", UUID.class);
         return new InformationNote()
                 .id(noteId)
                 .name(rs.getString("name"))
@@ -310,25 +311,25 @@ public final class InformationNote extends ActiveRecord {
 
     // +++ Statements +++
     private static final String STATEMENT_EXISTS = """
-            SELECT COUNT(id) > 0 AS result
+            SELECT COUNT(information_note_id) > 0 AS result
             FROM information_notes
-            WHERE id = ?
+            WHERE information_note_id = ?
             """;
 
     private static final String STATEMENT_INSERT = """
-            INSERT INTO information_notes (id, name, description, actual)
+            INSERT INTO information_notes (information_note_id, name, description, actual)
             VALUES (?, ?, ?, ?)
             """;
 
     private static final String STATEMENT_UPDATE = """
             UPDATE information_notes
             SET name = ?, description = ?, actual = ?
-            WHERE id = ?
+            WHERE information_note_id = ?
             """;
 
     private static final String STATEMENT_FIND = """
             SELECT * FROM information_notes
-            WHERE id = ?
+            WHERE information_note_id = ?
             """;
 
     private static final String STATEMENT_FIND_ALL_PAGEABLE = """
@@ -346,7 +347,7 @@ public final class InformationNote extends ActiveRecord {
 
     private static final String STATEMENT_FIND_ALL_WITH_TAG_PAGEABLE = """
             SELECT information_notes.* FROM information_notes
-            JOIN information_notes_tags ON information_notes.id = information_notes_tags.information_note_id
+            JOIN information_notes_tags ON information_notes.information_note_id = information_notes_tags.information_note_id
             AND information_notes_tags.tag_id = ?
             LIMIT ? + 1 OFFSET ?
             """;
