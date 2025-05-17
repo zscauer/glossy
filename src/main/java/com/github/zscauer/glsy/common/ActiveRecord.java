@@ -1,9 +1,6 @@
 package com.github.zscauer.glsy.common;
 
-import io.agroal.api.AgroalDataSource;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.annotation.Nonnull;
-import jakarta.enterprise.event.Observes;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -31,7 +28,7 @@ public abstract class ActiveRecord {
      */
     public static void setDatasource(@Nonnull final DataSource ds) {
         if (DATA_SOURCE == null) {
-            DATA_SOURCE = ds;
+            DATA_SOURCE = Objects.requireNonNull(ds);
         }
     }
 

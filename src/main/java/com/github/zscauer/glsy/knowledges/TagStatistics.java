@@ -5,7 +5,6 @@ import com.github.zscauer.glsy.common.ActiveRecord;
 import com.github.zscauer.glsy.common.PageableRequestParams;
 import com.github.zscauer.glsy.common.PageableSearchRequestParams;
 import io.quarkus.qute.TemplateData;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -128,10 +127,10 @@ public final class TagStatistics extends ActiveRecord {
             WITH search_str AS (
                 SELECT CONCAT('%%', LOWER(REPLACE(CAST(? AS varchar), ' ', '')), '%%')
             )
-            SELECT tags.id AS tag_id, COUNT(information_note_id) AS usages FROM tags
-            LEFT JOIN information_notes_tags ON tags.id = information_notes_tags.tag_id
+            SELECT tags.tag_id AS tag_id, COUNT(information_note_id) AS usages FROM tags
+            LEFT JOIN information_notes_tags ON tags.tag_id = information_notes_tags.tag_id
             WHERE (SELECT * FROM search_str) IS null OR LOWER(REPLACE(name, ' ', '')) LIKE (SELECT * FROM search_str)
-            GROUP BY id, name
+            GROUP BY tag_id, name
             ORDER BY name
             LIMIT ? + 1 OFFSET ?
             """;

@@ -44,7 +44,7 @@ final class DataSourceConfiguration {
                 return "%s%s%s%s%s".formatted(
                         location.orElse("jdbc:h2:file:./glsy-data/h2base"),
                         connectionParameterDelimeter(),
-                        connectionParameters.orElse("MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DEFAULT_NULL_ORDERING=HIGH;DEFRAG_ALWAYS=TRUE"),
+                        connectionParameters.orElse("MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DEFAULT_NULL_ORDERING=HIGH;DEFRAG_ALWAYS=TRUE;RECOMPILE_ALWAYS=TRUE"),
                         connectionParameterDelimeter(),
                         "INIT=CREATE SCHEMA IF NOT EXISTS glsy\\;SET SCHEMA glsy"
                 );

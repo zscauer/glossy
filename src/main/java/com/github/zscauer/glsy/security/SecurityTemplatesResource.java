@@ -1,6 +1,6 @@
 package com.github.zscauer.glsy.security;
 
-import com.github.zscauer.glsy.MainResource;
+import com.github.zscauer.glsy.MainTemplatesResource;
 import com.github.zscauer.glsy.common.RequestParams;
 import com.github.zscauer.glsy.common.TemplateDataContainer;
 import com.github.zscauer.glsy.tools.Templating;
@@ -33,7 +33,7 @@ import static com.github.zscauer.glsy.common.ResourcePaths.PATH_RESOURCE_SECURIT
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @SuppressWarnings("unused")
-final class SecurityResource {
+final class SecurityTemplatesResource {
 
     SecurityProvider securityProvider;
 
@@ -51,13 +51,13 @@ final class SecurityResource {
     @GET
     @Path(PATH_CHANGE_ACCESS_MODE_REQUEST)
     public RestResponse<TemplateInstance> changeAccessModeRequest(@BeanParam final RequestParams requestParams) {
-        final ResponseBuilder<TemplateInstance> responseBuilder = MainResource.createResponseBuilder(requestParams);
+        final ResponseBuilder<TemplateInstance> responseBuilder = MainTemplatesResource.createResponseBuilder(requestParams);
         final AccessProfile userAccess = securityProvider.define(requestParams);
 
         TemplateInstance result;
         if (!requestParams.hxRequest()) {
             final var dataContainer = new TemplateDataContainer<>(null, userAccess);
-            result = MainResource.spaTemplateLocalized(dataContainer, requestParams);
+            result = MainTemplatesResource.spaTemplateLocalized(dataContainer, requestParams);
         } else {
             result = Templating.localized(Templates.requestAccessModal(
                     new TemplateDataContainer<>(null, userAccess)), requestParams.userLanguage());
@@ -71,13 +71,13 @@ final class SecurityResource {
     public RestResponse<TemplateInstance> changeAccessMode(@BeanParam final RequestParams requestParams,
                                                            @FormParam("access-mode-secret-key") final String inputedSecret,
                                                            @FormParam("selected-access-mode") final AccessMode selectedAccessMode) {
-        final ResponseBuilder<TemplateInstance> responseBuilder = MainResource.createResponseBuilder(requestParams);
+        final ResponseBuilder<TemplateInstance> responseBuilder = MainTemplatesResource.createResponseBuilder(requestParams);
 
         TemplateInstance result;
         TemplateDataContainer<?> container;
         if (!requestParams.hxRequest()) {
             container = new TemplateDataContainer<>(null, securityProvider.define(requestParams));
-            result = MainResource.spaTemplateLocalized(container, requestParams);
+            result = MainTemplatesResource.spaTemplateLocalized(container, requestParams);
         } else {
             try {
                 securityProvider.grant(selectedAccessMode, inputedSecret, requestParams, responseBuilder);

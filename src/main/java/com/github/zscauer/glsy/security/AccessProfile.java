@@ -69,7 +69,7 @@ public abstract sealed class AccessProfile extends ActiveRecord permits Observer
      *
      * @param secret          secret key, inputed by user
      * @param requestParams   parameters of user request
-     * @param responseBuilder builder of response to user request
+     * @param responseBuilder builder of result to user request
      * @throws GrantAccessException if user cannot be authorized for current profile
      */
     public abstract void grant(String secret, RequestParams requestParams, ResponseBuilder<?> responseBuilder) throws GrantAccessException;
@@ -77,7 +77,7 @@ public abstract sealed class AccessProfile extends ActiveRecord permits Observer
     /**
      * Deauthorize user for current profile.
      *
-     * @param responseBuilder builder of response to user request
+     * @param responseBuilder builder of result to user request
      */
     public abstract void revoke(ResponseBuilder<?> responseBuilder);
 
@@ -109,8 +109,9 @@ public abstract sealed class AccessProfile extends ActiveRecord permits Observer
         return bytes;
     }
 
-    protected boolean inputedSecretIsCorrect(@Nonnull final PBEKeySpec inputedKeySpec, @Nonnull final String encryptedCorrectSecret)
-            throws InvalidKeySpecException {
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    protected boolean inputedSecretIsCorrect(@Nonnull final PBEKeySpec inputedKeySpec,
+                                             @Nonnull final String encryptedCorrectSecret) throws InvalidKeySpecException {
         Objects.requireNonNull(inputedKeySpec, "Inputed key spec not provided.");
         Objects.requireNonNull(encryptedCorrectSecret, "Correct secret not provided.");
 

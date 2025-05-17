@@ -78,6 +78,7 @@ public final class InformationNoteHistory extends ActiveRecord {
 
     // +++ Repository +++
     @Nonnull
+    @SuppressWarnings("UnusedReturnValue")
     public InformationNoteHistory save() {
         if (!isNew()) {
             throw new IllegalStateException(
@@ -157,7 +158,7 @@ public final class InformationNoteHistory extends ActiveRecord {
 
     private static InformationNoteHistory readFromResultSet(final ResultSet rs) throws SQLException {
         return new InformationNoteHistory()
-                .id(rs.getLong("id"))
+                .id(rs.getLong("information_note_history_id"))
                 .informationNoteId(rs.getObject("information_note_id", UUID.class))
                 .event(LifecycleEvent.valueOf(rs.getString("event")))
                 .eventTime(rs.getTimestamp("event_time").toLocalDateTime())
@@ -174,7 +175,7 @@ public final class InformationNoteHistory extends ActiveRecord {
 
     private static final String STATEMENT_FIND = """
             SELECT * FROM information_notes_history
-            WHERE id = ?
+            WHERE information_note_history_id = ?
             """;
 
     private static final String STATEMENT_FIND_FOR_INFORMATION_NOTE = """

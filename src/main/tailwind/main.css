@@ -1,8 +1,7 @@
 @import 'tailwindcss';
 
 @source '../resources/templates/**/*.html';
-
-/* @custom-variant hover (&:hover); */
+@source './tailwind-dynamic-styles-configuration.html';
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -22,8 +21,12 @@
   }
 } */
 
+:root {
+    @apply bg-gradient-to-b from-slate-900 to-slate-900/95;
+}
+
 body {
-    @apply flex flex-col min-h-full w-full bg-slate-900;
+    @apply flex flex-col min-h-full w-full;
 }
 
 button,

@@ -19,7 +19,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -202,31 +201,31 @@ public final class Tag extends ActiveRecord {
 
     private static Tag readFromResultSet(final ResultSet rs) throws SQLException {
         return new Tag()
-                .id(rs.getObject("id", UUID.class))
+                .id(rs.getObject("tag_id", UUID.class))
                 .name(rs.getString("name"));
     }
     // --- Mapping ---
 
     // +++ Statements +++
     private static final String STATEMENT_EXISTS = """
-            SELECT COUNT(id) > 0 FROM tags
-            WHERE id = ?
+            SELECT COUNT(tag_id) > 0 FROM tags
+            WHERE tag_id = ?
             """;
 
     private static final String STATEMENT_INSERT = """
-            INSERT INTO tags (id, name)
+            INSERT INTO tags (tag_id, name)
             VALUES (?, ?)
             """;
 
     private static final String STATEMENT_UPDATE = """
             UPDATE tags
             SET name = ?
-            WHERE id = ?
+            WHERE tag_id = ?
             """;
 
     private static final String STATEMENT_FIND = """
             SELECT * FROM tags
-            WHERE id = ?
+            WHERE tag_id = ?
             """;
 
     private static final String STATEMENT_FIND_ALL_PAGEABLE = """
@@ -249,7 +248,7 @@ public final class Tag extends ActiveRecord {
 
     private static final String STATEMENT_FIND_ALL_OF_INFORMATION_CARD = """
             SELECT tags.* FROM tags
-            JOIN information_notes_tags ON tags.id = information_notes_tags.tag_id
+            JOIN information_notes_tags ON tags.tag_id = information_notes_tags.tag_id
             AND information_notes_tags.information_note_id = ?
             """;
     // --- Statements ---

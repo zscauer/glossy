@@ -1,6 +1,6 @@
 package com.github.zscauer.glsy.knowledges;
 
-import com.github.zscauer.glsy.MainResource;
+import com.github.zscauer.glsy.MainTemplatesResource;
 import com.github.zscauer.glsy.common.RequestParams;
 import com.github.zscauer.glsy.common.TemplateDataContainer;
 import com.github.zscauer.glsy.security.SecurityProvider;
@@ -32,7 +32,7 @@ import static com.github.zscauer.glsy.common.ResourcePaths.PATH_RESOURCE_KNOWLED
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @SuppressWarnings("unused")
-final class KnowledgesResource {
+final class KnowledgesTemplatesResource {
 
     SecurityProvider securityProvider;
 
@@ -45,16 +45,16 @@ final class KnowledgesResource {
     @Path(PATH_COMPONENT_SEARCH_PANEL)
     public RestResponse<TemplateInstance> searchPanel(@BeanParam final RequestParams requestParams,
                                                       @QueryParam("searchSource") final SearchPanelSource searchSource) {
-        final ResponseBuilder<TemplateInstance> responseBuilder = MainResource.createResponseBuilder(requestParams);
+        final ResponseBuilder<TemplateInstance> responseBuilder = MainTemplatesResource.createResponseBuilder(requestParams);
 
         TemplateInstance result;
         if (!requestParams.hxRequest()) {
-            result = MainResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
+            result = MainTemplatesResource.spaTemplateLocalized(TemplateDataContainer.getEmpty(), requestParams);
         } else {
             switch (searchSource) {
-                case TAGS -> result = Templating.localized(TagsResource.searchPanel(), requestParams.userLanguage());
+                case TAGS -> result = Templating.localized(TagsTemplatesResource.searchPanel(), requestParams.userLanguage());
                 case null, default ->
-                        result = Templating.localized(InformationNotesResource.searchPanel(), requestParams.userLanguage());
+                        result = Templating.localized(InformationNotesTemplatesResource.searchPanel(), requestParams.userLanguage());
             }
         }
 

@@ -30,27 +30,27 @@ COMMENT ON COLUMN access_modes_content_privileges.privilege IS 'Privilege';
 
 CREATE TABLE IF NOT EXISTS tags
 (
-    id uuid,
+    tag_id uuid,
     name varchar UNIQUE, -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
-    CONSTRAINT "tags_pk" PRIMARY KEY (id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
+    CONSTRAINT "tags_pk" PRIMARY KEY (tag_id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
 );
 
 COMMENT ON TABLE tags IS 'Tags (keywords) to link few records';
-COMMENT ON COLUMN tags.id IS 'Id of tag';
+COMMENT ON COLUMN tags.tag_id IS 'Id of tag';
 COMMENT ON COLUMN tags.name IS 'Keyword';
 
 
 CREATE TABLE IF NOT EXISTS information_notes
 (
-    id uuid,
+    information_note_id uuid,
     name varchar UNIQUE, -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
     description varchar,
     actual boolean DEFAULT true,
-    CONSTRAINT "information_notes_pk" PRIMARY KEY (id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
+    CONSTRAINT "information_notes_pk" PRIMARY KEY (information_note_id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
 );
 
 COMMENT ON TABLE information_notes IS 'Records with information';
-COMMENT ON COLUMN information_notes.id IS 'Id of information card';
+COMMENT ON COLUMN information_notes.information_note_id IS 'Id of information card';
 COMMENT ON COLUMN information_notes.name IS 'Name (topic)';
 COMMENT ON COLUMN information_notes.description IS 'Description';
 COMMENT ON COLUMN information_notes.actual IS 'Current status of information in note (to hide, filter, etc)';
@@ -72,17 +72,17 @@ COMMENT ON COLUMN information_notes_tags.tag_id IS 'Id of tag';
 
 CREATE TABLE IF NOT EXISTS information_notes_history
 (
-    id bigint GENERATED ALWAYS AS IDENTITY,
-    information_note_id uuid REFERENCES information_notes(id), -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
+    information_note_history_id bigint GENERATED ALWAYS AS IDENTITY,
+    information_note_id uuid REFERENCES information_notes(information_note_id), -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
     event lifecycle_event,
     event_time timestamp,
     author varchar,
     state text,
-    CONSTRAINT "information_notes_history_pk" PRIMARY KEY (id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
+    CONSTRAINT "information_notes_history_pk" PRIMARY KEY (information_note_history_id) -- INDEX ALWAYS CREATED BY H2 AUTOMATICALLY
 );
 
 COMMENT ON TABLE information_notes_history IS 'History of changes of information notes (ONLY INSERTING SHOULD BE ALLOWED)';
-COMMENT ON COLUMN information_notes_history.id IS 'Id of change entry';
+COMMENT ON COLUMN information_notes_history.information_note_history_id IS 'Id of change entry';
 COMMENT ON COLUMN information_notes_history.information_note_id IS 'Id of changed information note';
 COMMENT ON COLUMN information_notes_history.event IS 'Type of change';
 COMMENT ON COLUMN information_notes_history.event_time IS 'Time of change';

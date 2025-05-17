@@ -5,6 +5,8 @@ package com.github.zscauer.glsy.common;
  */
 public class ResourcePaths {
 
+    public static final String PATH_API_V1 = "/api/v1";
+
     public static final String PATH_RESOURCE_MAIN = "";
     public static final String PATH_RESOURCE_KNOWLEDGES = "/knowledges";
     public static final String PATH_RESOURCE_INFORMATION_NOTES = PATH_RESOURCE_KNOWLEDGES + "/informationNotes";

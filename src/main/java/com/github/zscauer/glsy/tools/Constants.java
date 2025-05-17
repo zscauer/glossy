@@ -21,6 +21,8 @@ import java.time.ZoneId;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Constants {
 
+    public static final boolean IS_NATIVE_EXECUTION = System.getProperty("org.graalvm.nativeimage.imagecode") != null;
+
     private static String SERVICE_VERSION;
     private static short MAX_PAGE_SIZE;
     private static boolean INFORMATION_NOTES_HISTORY_TRACKING_ENABLED;
@@ -52,10 +54,6 @@ public class Constants {
     @TemplateGlobal(name = "getCurrentTimeInUTC")
     public static LocalDateTime getCurrentTimeInUTC() {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.of("UTC"));
-    }
-
-    public static boolean nativeExecution() {
-        return System.getProperty("org.graalvm.nativeimage.imagecode") != null;
     }
 
 }

@@ -12,7 +12,6 @@ import org.flywaydb.core.api.Location;
 import org.flywaydb.core.api.ResourceProvider;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.flywaydb.core.api.migration.JavaMigration;
-import org.flywaydb.core.api.output.MigrateResult;
 import org.flywaydb.core.api.resource.LoadableResource;
 import org.flywaydb.core.internal.resource.classpath.ClassPathResource;
 
@@ -52,13 +51,13 @@ final class FlywayConfiguration {
 
     @Startup
     void performMigration() {
-        if (Constants.nativeExecution()) {
+        if (Constants.IS_NATIVE_EXECUTION) {
             configuration.resourceProvider(new GraalVMResourceProvider(configuration.getLocations()));
             configuration.javaMigrationClassProvider(new GraalVMClassProvider());
         }
 
         final Flyway flyway = configuration.load();
-        final MigrateResult migrate = flyway.migrate();
+        flyway.migrate();
     }
 
     private record GraalVMResourceProvider(
