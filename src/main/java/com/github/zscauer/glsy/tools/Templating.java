@@ -19,14 +19,10 @@ public final class Templating {
         INFORMATION_NOTE
     }
 
-    public static TemplateInstance localized(@Nonnull final TemplateInstance template,
-                                             @Nullable Language userLanguage) {
-        Objects.requireNonNull(template);
-        if (userLanguage == null) {
-            userLanguage = Language.defaultLanguage();
-        }
-
-        return template.setLocale(userLanguage.toLocale());
+    public static TemplateInstance localized(final @Nonnull TemplateInstance template,
+                                             final @Nullable Language userLanguage) {
+        return Objects.requireNonNull(template)
+                .setLocale(Objects.requireNonNullElseGet(userLanguage, Language::defaultLanguage).toLocale());
     }
 
 }

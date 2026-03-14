@@ -18,6 +18,7 @@ quarkus:
 
   native:
     container-build: ${GLOSSY_NATIVE_CONTAINER_BIULD:false}
+    builder-image: quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25
     additional-build-args: ${GLOSSY_NATIVE_ADDITIONAL_BUILD_ARGS:-R:MaxRAM=32m}
     container-runtime-options: ${GLOSSY_NATIVE_CONTAINER_RUNTIME_OPTIONS:}
     resources:

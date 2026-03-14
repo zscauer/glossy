@@ -199,7 +199,7 @@ public final class InformationNote extends ActiveRecord {
 
             statement.setString(1, requestParams.searchString());
             statement.setShort(2, requestParams.pageSize());
-            statement.setInt(3, requestParams.pageSize() * (requestParams.page() - 1));
+            statement.setInt(3, requestParams.offset());
 
             return mapToList(statement.executeQuery());
 

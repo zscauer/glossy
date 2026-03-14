@@ -2,8 +2,9 @@ package com.github.zscauer.glsy.configuration;
 
 import com.github.zscauer.glsy.tools.Constants;
 import io.quarkus.arc.All;
-import io.quarkus.runtime.Startup;
+import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Observes;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.flywaydb.core.Flyway;
@@ -49,8 +50,7 @@ final class FlywayConfiguration {
                 .javaMigrations(javaMigrations.toArray(new JavaMigration[0]));
     }
 
-    @Startup
-    void performMigration() {
+    void performMigration(final @Observes StartupEvent startupEvent) {
         if (Constants.IS_NATIVE_EXECUTION) {
             configuration.resourceProvider(new GraalVMResourceProvider(configuration.getLocations()));
             configuration.javaMigrationClassProvider(new GraalVMClassProvider());
@@ -81,7 +81,7 @@ final class FlywayConfiguration {
             try (final FileSystem fileSystem = FileSystems.newFileSystem(URI.create("resource:/"), Collections.emptyMap())) {
                 final List<LoadableResource> result = new ArrayList<>();
                 for (final Location location : locations) {
-                    final Path path = fileSystem.getPath(location.getPath());
+                    final Path path = fileSystem.getPath(location.getRootPath());
                     try (final Stream<Path> files = Files.walk(path)) {
                         files.filter(Files::isRegularFile)
                                 .filter(file -> file.getFileName().toString().startsWith(prefix))

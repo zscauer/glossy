@@ -16,15 +16,10 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 final class ApplicationContextConfiguration {
 
-    DataSource dataSource;
-
-    public ApplicationContextConfiguration(@Nonnull final DataSource dataSource) {
-        this.dataSource = Objects.requireNonNull(dataSource,
-                "DataSource component was not registered during application context initialization.");
-    }
-
-    void onStart(@Observes final StartupEvent startupEvent) {
-        ActiveRecord.setDatasource(dataSource);
+    void onStart(final @Observes StartupEvent startupEvent,
+                 final @Nonnull DataSource dataSource) {
+        ActiveRecord.setDatasource(Objects.requireNonNull(dataSource,
+                "DataSource component was not registered during application context initialization."));
     }
 
 }

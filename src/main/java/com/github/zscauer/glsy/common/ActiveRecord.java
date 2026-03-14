@@ -1,6 +1,7 @@
 package com.github.zscauer.glsy.common;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -92,6 +94,28 @@ public abstract class ActiveRecord {
             log.error(e.getMessage());
             return exists;
         }
+    }
+
+    /**
+     * Extract the only one element from given collection.
+     *
+     * @param type  uses in exception message only for debug purposes
+     * @param found list of found elements
+     * @param id    uses in exception message only for debug purposes
+     * @param <T>   type of collection
+     * @return the only one element, {@code null} if no elements found
+     * @throws IllegalStateException if collection contains more than one element
+     */
+    protected static <T> @Nullable T takeOnlyOne(final @Nonnull Class<T> type,
+                                                 final @Nonnull List<T> found,
+                                                 final @Nullable Object id) throws IllegalStateException {
+        if (found.isEmpty()) {
+            return null;
+        } else if (found.size() > 1) {
+            throw new IllegalStateException("Found more than one '%s' with id '%s'.".formatted(type.getSimpleName(), id));
+        }
+
+        return found.getFirst();
     }
 
     protected static String formatForSearchLikeExpression(final String value) {

@@ -2,7 +2,7 @@
 
 {#fragment id=error}
 <div id="error-page-content-container"
-    class="flex flex-col justify-between bg-slate-950 text-center text-purple-800 gap-6 max-w-md max-h-[600px] m-auto min-w-md min-h-[200px] bg-gray-200 p-5 rounded-md">
+    class="flex flex-col justify-between bg-slate-950 text-center text-purple-800 gap-6 max-w-md max-h-[600px] m-auto min-w-md min-h-[200px] p-5 rounded-md">
     <div class="font-bold text-8xl">{dataContainer.errorCode()}</div>
     {#insert fragments/common/message-area /}
     <div class="flex justify-center">{#include fragments/common/icons/broken-page-icon /}</div>

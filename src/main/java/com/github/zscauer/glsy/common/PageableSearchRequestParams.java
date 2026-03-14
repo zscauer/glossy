@@ -37,4 +37,8 @@ public final class PageableSearchRequestParams extends PageableRequestParams {
         return super.parameterizedPath(currentPath);
     }
 
+    public int offset() {
+        return pageSize() * (page() - 1);
+    }
+
 }
